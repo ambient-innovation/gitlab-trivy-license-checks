@@ -1,0 +1,1 @@
+# gitlab-trivy-license-checks
