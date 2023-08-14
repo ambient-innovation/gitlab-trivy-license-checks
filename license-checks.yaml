@@ -20,7 +20,8 @@ license_scanning:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   allow_failure: true
   script:
-    - ./trivy image --config ${TRIVY_YAML} --exit-code 0 --severity $SEVERITY --scanners $SCANNERS --format template --template "@${TRIVY_CACHE_DIR}license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1 || true
+    - ./trivy image --config ${TRIVY_YAML} --exit-code 0 --severity $SEVERITY --scanners $SCANNERS --format table $IMAGE
+    - ./trivy image --config ${TRIVY_YAML} --exit-code 1 --severity $SEVERITY --scanners $SCANNERS --format template --template "@${TRIVY_CACHE_DIR}license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1
   cache:
     paths:
       - $TRIVY_CACHE_DIR
