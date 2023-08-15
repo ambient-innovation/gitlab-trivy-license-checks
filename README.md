@@ -111,7 +111,6 @@ If all is good, you'll see a new green bar above your test results.
 If any vulnerabilities were found, you'll see a new yellow bar above the test results in your Merge-Request:  
 ![Code Quality Seal](images/codequality-seal.jpg)  
 You can then expand that section and see all the results:  
-![Major Code Quality Issues](images/codequality-major.jpg)  
 ![Critical Code Quality Issues](images/codequality-critical.jpg)
 
 You can also just check the failed scanning jobs for a plaintext error report. This can also include additional details not visible in the GitLab-UI.  
