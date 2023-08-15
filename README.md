@@ -37,40 +37,13 @@ c) only report errors with a level of HIGH,CRITICAL or UNKNOWN.
 
 You can also specify the `FILENAME` of the result-output as you like. 
 
-**Note:** If you wish to run the `license_scanning` job in another job than "`test`" (as it does by default) simply copy the above code to your .gitlab-ci.yml file and add the keyword `stage` with your custom stage name.
+**Note:** If you wish to run the `license_scanning` job in another stage than "`test`" (as it does by default) simply copy the above code to your .gitlab-ci.yml file and add the keyword `stage` with your custom stage name.
 
 Example for minimal stage-overwrite setup:
 
 ```yaml
 license_scanning:
   stage: my-custom-stage
-```
-
-## Scanning multiple images/directories (i.e. frontend and backend)  
-To scan multiple images/directories, you can simply copy the job above, add another key `extends: license_scanning` and change the variable values for the other container.
-
-Here's an example:
-```yaml
-license_scanning_frontend:
-  extends:
-    - license_scanning
-  variables:
-    IMAGE: $IMAGE_TAG_FRONTEND
-```
-
-## Unknown licenses detected / licenses mismatched
-Trivy compares the license names it finds to a static list of names contained in it's binary distribution. It's very likely that not all your dependencies will match against this list due to typos, different spellings or dual-licensing. In these cases you will have to create your own custom mapping in a config file called trivy.yaml.
-
-To get you started, this repository ships with it's own trivy.yaml where we already matched a few common misspellings of license names into their corresponding categories. Unless specified otherwise, this scanner job will download the trivy.yaml and use that. We'd like to encourage you to submit new license mappings as PRs to this repository.
-
-We will however not adjust the severity of individual licenses in this repository. If your project allows for strong-copyleft-licenses to be used or requires that you can't disclose library authors to your users for example, you will have to edit the trivy.yaml in your own repository.
-You can download our main-copy and store it somewhere in your project source to modify it. Then point the license scanner at your personal config file using the TRIVY_YAML environment variable.
-
-Here's an example:
-```yaml
-license_scanning:
-  variables:
-    TRIVY_YAML: './frontend/custom-trivy.yaml'
 ```
 
 ## Show reports in the Merge-Request UI
@@ -116,6 +89,46 @@ You can then expand that section and see all the results:
 You can also just check the failed scanning jobs for a plaintext error report. This can also include additional details not visible in the GitLab-UI.  
 Currently trivy has no way to exclude operating system packages from the plaintext report, so this output will contain false-positive reports for those.  
 Just scroll past the first table and only check the one that says Node.js, Python or whatever the programming language used for your project might be.
+
+## Interpreting the output
+Each job will print a table with all licenses found. At the time of writing this, trivy will always print the licenses of OS packages as well, but you should not be concerned about any of them.  
+
+The merge-request widget / the json artifacts already filter out OS packages, but if you need to look at the tabular output, you can safely ignore the OS Packages and only look at the report for programming language packages (i.e.: Python packages, Node.js packages etc.)
+
+Packages with a Severity of unknown either didn't provide a License at all or didn't match any of the licenses known to the software.  
+If the license field says UNKNOWN, you should verify the license by hand at the package repository. (i.e. NPM, PyPi, GitHub, ...)  
+If the license field has a license name in it, it's probably an alternative spelling that isn't yet recognized by trivy. Please open an issue or PR on our GitHub to add the new spelling to the trivy.yaml file in this repository.
+
+Packages with a Severity rating of CRITICAL most likely require you to disclose the sourcecode of your application to every user/visitor. Check with the Privacy Circle if in doubt.  
+Packages with a Severity rating of HIGH usually have a viral license like GPL. Such packages are most likely fine if used in the backend, but might require you to disclose the sourcecode to every user if used in the frontend. Check with the Privacy Circle if in doubt.
+
+## Scanning multiple images/directories (i.e. frontend and backend)  
+To scan multiple images/directories, you can simply copy the job above, add another key `extends: license_scanning` and change the variable values for the other container.
+
+Here's an example:
+```yaml
+license_scanning_frontend:
+  extends:
+    - license_scanning
+  variables:
+    IMAGE: $IMAGE_TAG_FRONTEND
+```
+
+## Unknown licenses detected / licenses mismatched
+Trivy compares the license names it finds to a static list of names contained in it's binary distribution. It's very likely that not all your dependencies will match against this list due to typos, different spellings or dual-licensing. In these cases you will have to create your own custom mapping in a config file called trivy.yaml.
+
+To get you started, this repository ships with it's own trivy.yaml where we already matched a few common misspellings of license names into their corresponding categories. Unless specified otherwise, this scanner job will download the trivy.yaml and use that. We'd like to encourage you to submit new license mappings as PRs to this repository.
+
+We will however not adjust the severity of individual licenses in this repository. If your project allows for strong-copyleft-licenses to be used or requires that you can't disclose library authors to your users for example, you will have to edit the trivy.yaml in your own repository.
+You can download our main-copy and store it somewhere in your project source to modify it. Then point the license scanner at your personal config file using the TRIVY_YAML environment variable.
+
+Here's an example:
+```yaml
+license_scanning:
+  variables:
+    TRIVY_YAML: './frontend/custom-trivy.yaml'
+```
+
 
 ## Advanced Settings  
 The container scanning job exposes a few more variables by which you can adjust the scanning if needed. The default settings are the recommendation of the TE-Circle, though.  
