@@ -33,14 +33,17 @@ license:
         - including without limitation the rights to use
         - copy
         - modify
+        - merge
         - publish
         - distribute
         - sublicense
         - and/or sell copies of the Software
         - to permit persons to whom the Software is furnished to do so
-        - "subject to the following conditions: The above copyright notice"
+        - "subject to the following conditions: The above copyright 
+        notice"
         - this permission notice shall be included in all copies
-        - substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS"
+        - "substantial portions of the Software. THE SOFTWARE IS 
+        PROVIDED \"AS IS\""
         - WITHOUT WARRANTY OF ANY KIND
         - EXPRESS OR IMPLIED
         - INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY
@@ -115,7 +118,8 @@ license:
         - LPL-1.0
         - MS-PL
         - MIT
-        - The MIT License (MIT) Copyright 2020-2022 Python Packaging Authority Permission is hereby granted
+        - "The MIT License (MIT) Copyright 2020-2022 Python Packaging
+        Authority Permission is hereby granted"
         - (MIT OR CC0-1.0)
         - (MIT OR Apache-2.0)
         - MIT OR Apache-2.0
@@ -237,6 +241,7 @@ license:
         - public-domain-s-s-d
         - unencumbered
         - Unicode
+        - UNKNOWN
         - Unlicense
         - WTFPL
         - (WTFPL OR MIT)
