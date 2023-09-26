@@ -25,18 +25,6 @@ license:
         - Facebook-Examples
     full: false
     ignored:
-        # Random stuff that's not a licence
-        - bitstream-vera
-        - bzip2-1.0.6
-        - check-gdk-cairo-permissive
-        - Dual License
-        - Kuchling-PD
-        - other
-        - public-domain
-        - public-domain-s-s-d
-        - unencumbered
-        - Unicode
-        - X11R5-permissive
         # MIT licence parts
         - free of charge
         - to any person obtaining a copy of this software
@@ -80,6 +68,7 @@ license:
         - Apache Software License
         - Apache Software License 2.0
         - ASL
+        - Artistic
         - Artistic-1.0-cl8
         - Artistic-1.0-Perl
         - Artistic-1.0
@@ -162,6 +151,7 @@ license:
         - W3C-20150513
         - W3C
         - X11
+        - X11R5-permissive
         - Xnet
         - Zend-2.0
         - zlib-acknowledgement
@@ -235,8 +225,18 @@ license:
         - QPL-1.0
         - Sleepycat
     unencumbered:
-        - CC0-1.0
-        - Unlicense
         - 0BSD
+        - CC0-1.0
+        - bitstream-vera
+        - bzip2-1.0.6
+        - check-gdk-cairo-permissive
+        - Dual License
+        - Kuchling-PD
+        - other
+        - public-domain
+        - public-domain-s-s-d
+        - unencumbered
+        - Unicode
+        - Unlicense
         - WTFPL
         - (WTFPL OR MIT)
