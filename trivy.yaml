@@ -25,9 +25,11 @@ license:
         - Facebook-Examples
     full: false
     ignored:
+        # Random stuff that's not a licence
         - bitstream-vera
         - bzip2-1.0.6
         - check-gdk-cairo-permissive
+        - Dual License
         - Kuchling-PD
         - other
         - public-domain
@@ -35,6 +37,31 @@ license:
         - unencumbered
         - Unicode
         - X11R5-permissive
+        # MIT licence parts
+        - free of charge
+        - to any person obtaining a copy of this software
+        - associated documentation files (the "Software")
+        - to deal in the Software without restriction
+        - including without limitation the rights to use
+        - copy
+        - modify
+        - publish
+        - distribute
+        - sublicense
+        - and/or sell copies of the Software
+        - to permit persons to whom the Software is furnished to do so
+        - "subject to the following conditions: The above copyright notice"
+        - this permission notice shall be included in all copies
+        - substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS"
+        - WITHOUT WARRANTY OF ANY KIND
+        - EXPRESS OR IMPLIED
+        - INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY
+        - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM
+        - DAMAGES OR OTHER LIABILITY
+        - WHETHER IN AN ACTION OF CONTRACT
+        - TORT OR OTHERWISE
+        - ARISING FROM
+        - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     notice:
         - AFL-1.1
         - AFL-1.2
