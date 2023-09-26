@@ -24,7 +24,32 @@ license:
         - Facebook-3-Clause
         - Facebook-Examples
     full: false
-    ignored: []
+    ignored:
+        # MIT licence parts
+        - free of charge
+        - to any person obtaining a copy of this software
+        - associated documentation files (the "Software")
+        - to deal in the Software without restriction
+        - including without limitation the rights to use
+        - copy
+        - modify
+        - publish
+        - distribute
+        - sublicense
+        - and/or sell copies of the Software
+        - to permit persons to whom the Software is furnished to do so
+        - "subject to the following conditions: The above copyright notice"
+        - this permission notice shall be included in all copies
+        - substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS"
+        - WITHOUT WARRANTY OF ANY KIND
+        - EXPRESS OR IMPLIED
+        - INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY
+        - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM
+        - DAMAGES OR OTHER LIABILITY
+        - WHETHER IN AN ACTION OF CONTRACT
+        - TORT OR OTHERWISE
+        - ARISING FROM
+        - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     notice:
         - AFL-1.1
         - AFL-1.2
@@ -34,29 +59,38 @@ license:
         - AFL-3.0
         - Apache-1.0
         - Apache-1.1
+        - Apache-2
         - Apache-2.0
+        - Apache-2.0 with LLVM exception
         - (Apache-2.0 OR MPL-1.1)
         - Apache License, Version 2.0
         - Apache License 2.0
         - Apache Software License
+        - Apache Software License 2.0
         - ASL
+        - Artistic
         - Artistic-1.0-cl8
         - Artistic-1.0-Perl
         - Artistic-1.0
         - Artistic-2.0
         - BSL-1.0
+        - BSD-2
         - BSD-2-Clause-FreeBSD
         - BSD-2-Clause-NetBSD
         - BSD-2-Clause
         - (BSD-2-Clause OR MIT OR Apache-2.0)
         - BSD-3-Clause-Attribution
         - BSD-3-Clause-Clear
+        - BSD-3-clause-generic
         - BSD-3-Clause-LBNL
         - BSD-3-Clause
+        - BSD-3-clause and/or GPL-3+
+        - BSD-3-clause-pcre
         - (BSD-3-Clause OR GPL-2.0)
         - BSD 3-Clause License
         - BSD 3-Clause License or Apache License
         - BSD 3-Clause
+        - BSD-4
         - BSD-4-Clause
         - BSD-4-Clause-UC
         - BSD-Protection
@@ -81,6 +115,7 @@ license:
         - LPL-1.0
         - MS-PL
         - MIT
+        - The MIT License (MIT) Copyright 2020-2022 Python Packaging Authority Permission is hereby granted
         - (MIT OR CC0-1.0)
         - (MIT OR Apache-2.0)
         - MIT OR Apache-2.0
@@ -89,6 +124,8 @@ license:
         - MIT/X11
         - MIT License
         - MIT Licences
+        - MIT-like
+        - Expat
         - Expat license
         - Expat License
         - NCSA
@@ -114,6 +151,7 @@ license:
         - W3C-20150513
         - W3C
         - X11
+        - X11R5-permissive
         - Xnet
         - Zend-2.0
         - zlib-acknowledgement
@@ -153,6 +191,7 @@ license:
         - CC-BY-SA-2.5
         - CC-BY-SA-3.0
         - CC-BY-SA-4.0
+        - GPL with automake exception
         - GPL-1.0
         - GPL-2.0
         - GPL-2.0-with-autoconf-exception
@@ -160,12 +199,18 @@ license:
         - GPL-2.0-with-classpath-exception
         - GPL-2.0-with-font-exception
         - GPL-2.0-with-GCC-exception
+        - GPL-2+ with Autoconf-data exception
+        - GPL-2+ with Texinfo exception
+        - GNU General Public License (GPL)
         - GNU General Public License v2 (GPLv2)
         - later (GPLv2+)
         - GNU General Public License v2
         - GPL-3.0
         - GPL-3.0-with-autoconf-exception
         - GPL-3.0-with-GCC-exception
+        - GPL-3+ with Autoconf-data exception
+        - GPL-3+ with texinfo exception
+        - GPL-unspecified
         - GNU GPL 3
         - LGPL-2.0
         - LGPL-2.1
@@ -180,8 +225,18 @@ license:
         - QPL-1.0
         - Sleepycat
     unencumbered:
-        - CC0-1.0
-        - Unlicense
         - 0BSD
+        - CC0-1.0
+        - bitstream-vera
+        - bzip2-1.0.6
+        - check-gdk-cairo-permissive
+        - Dual License
+        - Kuchling-PD
+        - other
+        - public-domain
+        - public-domain-s-s-d
+        - unencumbered
+        - Unicode
+        - Unlicense
         - WTFPL
         - (WTFPL OR MIT)

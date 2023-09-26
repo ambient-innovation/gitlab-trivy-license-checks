@@ -1,0 +1,10 @@
+# Whitelist
+!images/*
+!LICENSE
+!license-checks.tpl
+!license-checks.yml
+!README.md
+!trivy.yaml
+
+# Exclude everything else
+*

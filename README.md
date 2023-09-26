@@ -139,6 +139,19 @@ Trivy requires a full list of severities to report. To report all severities fro
 
 We recommend only scanning for licenses with a CRITICAL or UNKNOWN level in the backend as that is typically not considered to be distributed and licenses such as the GPL are perfectly fine to use without having to disclose the project sources to users. In frontend settings where users download your (minified) JavaScript, you should set the report level to include HIGH as well. Licenses such as the GPL would otherwise require to disclose the sourcecode to any user who requests it.
 
+### Setting exit code for scanner
+
+Since Trivy is not able to exclude findings for OS-level packages, we will have some matches in basically every case. 
+A pipeline, that always warns, will in reality never warn. That's why the default here is set to "0", meaning that it 
+will be "green" in GitLab. If you want to change this, just set the variable `EXIT_CODE_ON_FINDINGS`.
+
+Here's an example:
+```yaml
+license_scanning:
+  variables:
+    EXIT_CODE_ON_FINDINGS: 1
+```
+
 ### Other settings
 By default trivy performs one run in full-silence mode writing the results to the gitlab codeclimate report file and then another one showing the results in a plaintext table. If the scan is taking very long, you can also show a progress bar during the scan by setting the `TRIVY_NO_PROGRESS` variable to `"false"`.  
 To make sure you're doing a fresh run and instruct trivy to download a fresh vulnerability database, you can turn off/move the cache directory via the `TRIVY_CACHE_DIR` variable. The default value for this variable is a directory called `.trivycache`
