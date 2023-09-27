@@ -23,7 +23,7 @@ license_scanning:
     - if [ ! -e ${TRIVY_CACHE_DIR}trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz ]; then wget --no-verbose https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -O ${TRIVY_CACHE_DIR}trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz; fi
     - tar -zxvf ${TRIVY_CACHE_DIR}trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -C .
     - if [ ! -e ${TRIVY_CACHE_DIR}license-checks.tpl ]; then  wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.tpl -O ${TRIVY_CACHE_DIR}license-checks.tpl; fi
-    - if [ ! -e ${TRIVY_CACHE_DIR}trivy.yaml ]; then  wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/trivy.yaml -O ${TRIVY_CACHE_DIR}trivy.yaml; fi
+    - wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/trivy.yaml -O ${TRIVY_CACHE_DIR}trivy.yaml
     - until docker info; do sleep 1; done # Mitigate GitLab-Runner not setting up DinD in time, see: https://gitlab.com/gitlab-org/gitlab/-/issues/354744
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   allow_failure: true
