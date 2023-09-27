@@ -129,6 +129,9 @@ license_scanning:
     TRIVY_YAML: './frontend/custom-trivy.yaml'
 ```
 
+Keep in mind that if you detect a package with badly configured licences like `pipenv`, maybe you can 
+just uninstall it in your production image.
+
 
 ## Advanced Settings  
 The container scanning job exposes a few more variables by which you can adjust the scanning if needed. The default settings are the recommendation of the TE-Circle, though.  
