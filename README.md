@@ -129,6 +129,10 @@ license_scanning:
     TRIVY_YAML: './frontend/custom-trivy.yaml'
 ```
 
+Some packages in the python world report the full license text as their license. Until that is fixed upstream these packages will be reported having unknown licenses and show up as an error.  
+As of October 2023, we know at least `pipenv` and `traitlets` do this.  
+Because pipenv is only needed during setup, you can easily remove that requirement from your pipfile without any disadvantage.
+
 
 ## Advanced Settings  
 The container scanning job exposes a few more variables by which you can adjust the scanning if needed. The default settings are the recommendation of the TE-Circle, though.  
