@@ -132,7 +132,6 @@ license_scanning:
 Some packages in the python world report the full license text as their license. Until that is fixed upstream these packages will be reported having unknown licenses and show up as an error.  
 As of October 2023, we know at least `pipenv` and `traitlets` do this.  
 Because pipenv is only needed during setup, you can easily remove that requirement from your pipfile without any disadvantage.
-just uninstall it in your production image.
 
 
 ## Advanced Settings  
