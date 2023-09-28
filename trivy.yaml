@@ -97,8 +97,10 @@ license:
         - (MIT AND Zlib)
         - MIT/X11
         - MIT License
+        - MIT license
         - MIT Licences
         - MIT-like
+        - MIT/Expat
         - Expat
         - Expat license
         - Expat License
@@ -213,5 +215,6 @@ license:
         - Unicode
         - UNKNOWN
         - Unlicense
+        - UNLICENSED
         - WTFPL
         - (WTFPL OR MIT)
