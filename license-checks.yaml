@@ -27,7 +27,7 @@ license_scanning:
     - wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/trivy.yaml -O ${TRIVY_CACHE_DIR}trivy.yaml
     - until docker info; do sleep 1; done # Mitigate GitLab-Runner not setting up DinD in time, see: https://gitlab.com/gitlab-org/gitlab/-/issues/354744
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - apk add yq
+    - apk update && apk add yq
     - if [ -z "$TRIVY_YAML" ]; then echo "using default trivy.yaml"; cat ${TRIVY_CACHE_DIR}trivy.yaml > ${COMBINED_TRIVY_YAML}; else echo "combining ${TRIVY_CACHE_DIR}triv.yaml with ${TRIVY_YAML}"; yq eval-all '. as $item ireduce ({}; . *d+ $item )' ${TRIVY_CACHE_DIR}trivy.yaml ${TRIVY_YAML} > ${COMBINED_TRIVY_YAML}; fi
   allow_failure: true
   script:
