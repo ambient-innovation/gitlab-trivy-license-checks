@@ -4,6 +4,7 @@ variables:
 license_scanning:
   tags:
     - small-runner
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
   stage: test
   variables:
     TRIVY_NO_PROGRESS: "true"
