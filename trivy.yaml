@@ -42,6 +42,7 @@ license:
         - Apache License 2.0
         - Apache Software License
         - Apache Software License 2.0
+        - Apache-2.0 license
         - ASL
         - Artistic
         - Artistic-1.0-cl8
@@ -51,6 +52,7 @@ license:
         - BSL-1.0
         - BSD-2
         - BSD-2-Clause-FreeBSD
+        - FreeBSD License
         - BSD-2-Clause-NetBSD
         - BSD-2-Clause
         - (BSD-2-Clause OR MIT OR Apache-2.0)
@@ -191,6 +193,7 @@ license:
         - LGPL-2.0
         - LGPL-2.1
         - LGPL-3.0
+        - GNU Lesser General Public License v3 (LGPLv3)
         - NPL-1.0
         - NPL-1.1
         - OSL-1.0
