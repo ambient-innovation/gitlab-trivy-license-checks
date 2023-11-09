@@ -2,6 +2,7 @@ variables:
  - DOCKER_VERSION: 24.0.16
 
 license_scanning:
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:${DOCKER_VERSION}
   tags:
     - small-runner
   stage: test
@@ -15,7 +16,7 @@ license_scanning:
     SCANNERS: "license"
     EXIT_CODE_ON_FINDINGS: 0
   services:
-    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:${DOCKER_VERSION}-dind 
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:${DOCKER_VERSION}
       alias: docker
   before_script:
     - if [ ! -e ${TRIVY_CACHE_DIR} ]; then mkdir -p ${TRIVY_CACHE_DIR}; fi
