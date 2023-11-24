@@ -24,6 +24,7 @@ license_scanning:
     - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:${DOCKER_VERSION}
       alias: docker
   before_script:
+    - if [ ! -e ${TRIVY_CACHE_DIR} ]; then mkdir -p ${TRIVY_CACHE_DIR}; fi
     - touch $FILENAME
     - until docker info; do sleep 1; done # Mitigate GitLab-Runner not setting up DinD in time, see: https://gitlab.com/gitlab-org/gitlab/-/issues/354744
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
