@@ -47,10 +47,7 @@ license_scanning:
 ```
 
 ## Show reports in the Merge-Request UI
-To show a report-widget with all the errors found in the Merge-Request widget, you need to a) set `allow_failure: true` in your scanning jobs and b) create another job to run in one of the following stages (can be an own stage or you can reuse one of your existing stages).  
-This secondary job will then read the report files from your scanning jobs, combine them and report them as code-quality to GitLab.  
-If you're already using the ambient-innovation/gitlab-trivy-security-checks scanner, you should combine all jobs in one result job.
-
+To get a singular job to report on all the scanning errors in one place, add a check scan results job that combines the other job results.  
 
 Here's an example of how that job could look like:  
 ```yaml
@@ -160,7 +157,8 @@ license_scanning:
 By default trivy performs one run in full-silence mode writing the results to the gitlab codeclimate report file and then another one showing the results in a plaintext table. If the scan is taking very long, you can also show a progress bar during the scan by setting the `TRIVY_NO_PROGRESS` variable to `"false"`.  
 To make sure you're doing a fresh run and instruct trivy to download a fresh vulnerability database, you can turn off/move the cache directory via the `TRIVY_CACHE_DIR` variable. The default value for this variable is a directory called `.trivycache`
 
-You can add more variables corresponding to the CLI switches as documented on the trivy homepage: https://aquasecurity.github.io/trivy/latest/docs/references/customization/envs/
+You can add more variables corresponding to the CLI switches as [documented on the trivy homepage](https://aquasecurity.github.io/trivy/v0.48/docs/references/configuration/cli/trivy/)  
+NOTE: This link points to the reference as of v0.48 - December 2023, make sure to check the latest version for changes in newer versions.
 
 This config ships with a default trivy.yaml that contains some additional license mappings for common misspellings of licenses. If you'd rather include your own mapping table, download the trivy.yaml file from this repository and store it in your git repository. You can then edit it and configure the Scanner to use your own file instead by providing the path to your trivy.yaml file in the TRIVY_YAML environment variable.
 
