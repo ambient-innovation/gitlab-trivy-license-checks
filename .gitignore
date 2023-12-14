@@ -1,9 +1,9 @@
 # Whitelist
 !images/*
 !LICENSE
-!license-checks.tpl
-!license-checks.yml
 !README.md
+!license-checks.tpl
+!license-checks.yaml
 !trivy.yaml
 
 # Exclude everything else
