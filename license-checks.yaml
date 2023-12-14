@@ -24,9 +24,10 @@ license_scanning:
     - touch $FILENAME
     - apk update && apk add yq
     - if [ -z "$TRIVY_YAML" ]; then echo "using default trivy.yaml"; cat ${TRIVY_CACHE_DIR}trivy.yaml > ${COMBINED_TRIVY_YAML}; else echo "combining ${TRIVY_CACHE_DIR}triv.yaml with ${TRIVY_YAML}"; yq eval-all '. as $item ireduce ({}; . *d+ $item )' ${TRIVY_CACHE_DIR}trivy.yaml ${TRIVY_YAML} > ${COMBINED_TRIVY_YAML}; fi
+    - if [ ! -e ${TRIVY_CACHE_DIR}license-checks.tpl ]; then  wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.tpl -O ${TRIVY_CACHE_DIR}license-checks.tpl; fi
   allow_failure: true
   script:
-    - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ./.trivyignore.yaml --exit-code 0 --format template --template "@license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1
+    - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ./.trivyignore.yaml --exit-code 0 --format template --template "@${TRIVY_CACHE_DIR}license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1
     - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ./.trivyignore.yaml --exit-code ${EXIT_CODE_ON_FINDINGS} --format table $IMAGE
   cache:
     paths:
