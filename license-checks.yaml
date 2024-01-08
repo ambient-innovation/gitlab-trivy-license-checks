@@ -1,5 +1,5 @@
 license_scanning:
-  image: 
+  image:
     name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/aquasec/trivy
     entrypoint: [""]
   tags:
@@ -22,8 +22,9 @@ license_scanning:
   before_script:
     - if [ ! -e ${TRIVY_CACHE_DIR} ]; then mkdir -p ${TRIVY_CACHE_DIR}; fi
     - touch $FILENAME
+    - touch ${TRIVY_CACHE_DIR}trivy.yaml
     - apk update && apk add yq
-    - if [ -z "$TRIVY_YAML" ]; then echo "using default trivy.yaml"; cat ${TRIVY_CACHE_DIR}trivy.yaml > ${COMBINED_TRIVY_YAML}; else echo "combining ${TRIVY_CACHE_DIR}triv.yaml with ${TRIVY_YAML}"; yq eval-all '. as $item ireduce ({}; . *d+ $item )' ${TRIVY_CACHE_DIR}trivy.yaml ${TRIVY_YAML} > ${COMBINED_TRIVY_YAML}; fi
+    - if [ -z "$TRIVY_YAML" ]; then echo "using default trivy.yaml"; cat ${TRIVY_CACHE_DIR}trivy.yaml > ${COMBINED_TRIVY_YAML}; else echo "combining ${TRIVY_CACHE_DIR}trivy.yaml with ${TRIVY_YAML}"; yq eval-all '. as $item ireduce ({}; . *d+ $item )' ${TRIVY_CACHE_DIR}trivy.yaml ${TRIVY_YAML} > ${COMBINED_TRIVY_YAML}; fi
   allow_failure: true
   script:
     - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ./.trivyignore.yaml --exit-code 0 --format template --template "@${TRIVY_CACHE_DIR}license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1
