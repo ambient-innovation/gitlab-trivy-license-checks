@@ -25,6 +25,8 @@ license_scanning:
     - touch ${TRIVY_CACHE_DIR}trivy.yaml
     - apk update && apk add yq
     - if [ -z "$TRIVY_YAML" ]; then echo "using default trivy.yaml"; cat ${TRIVY_CACHE_DIR}trivy.yaml > ${COMBINED_TRIVY_YAML}; else echo "combining ${TRIVY_CACHE_DIR}trivy.yaml with ${TRIVY_YAML}"; yq eval-all '. as $item ireduce ({}; . *d+ $item )' ${TRIVY_CACHE_DIR}trivy.yaml ${TRIVY_YAML} > ${COMBINED_TRIVY_YAML}; fi
+    # If the license-check template isn't cached yet, download it from the github repo.
+    # We use this template to output the license findings in a CodeQuality-Style report so it can be processed by the GitLab-Merge-Request-Widget
     - if [ ! -e ${TRIVY_CACHE_DIR}license-checks.tpl ]; then  wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.tpl -O ${TRIVY_CACHE_DIR}license-checks.tpl; fi
   allow_failure: true
   script:
