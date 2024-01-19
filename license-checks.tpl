@@ -12,7 +12,7 @@
       {{- end }}
       {
         "type": "issue",
-        "check_name": "container_scanning",
+        "check_name": "license_scanning",
         "categories": [ "Security" ],
         "description": {{ list .Name .PkgName .FilePath .Link | compact | join " - " | printf "%q" }},
         "fingerprint": "{{ list .Name .PkgName .FilePath .Link $target | compact | join "" | sha1sum }}",
