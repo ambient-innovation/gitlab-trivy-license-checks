@@ -4,6 +4,7 @@
 !README.md
 !license-checks.tpl
 !license-checks.yaml
+!license-checks-custom.yaml
 !trivy.yaml
 
 # Exclude everything else
