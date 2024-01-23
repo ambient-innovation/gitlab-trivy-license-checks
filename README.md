@@ -52,7 +52,7 @@ If you want to customise the job name, the above method will not work because th
 To be able to fully customise the pipeline job, replace the entry in `include` like so:
 ```yaml
 include:
-  - remote: https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks-custom.yaml
+  - remote: https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.template.yaml
 ```
 
 Note the file name change at the end.
