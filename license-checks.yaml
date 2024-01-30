@@ -1,4 +1,12 @@
 include:
   - remote: https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.template.yaml
 
-license_scanning: !reference [ .license_scanning ]
+license_scanning:
+  allow_failure: !reference [ .license_scanning, allow_failure ]
+  artifacts: !reference [ .license_scanning, artifacts ]
+  cache: !reference [ .license_scanning, cache ]
+  image: !reference [ .license_scanning, image ]
+  script: !reference [ .license_scanning, script ]
+  stage: !reference [ .license_scanning, stage ]
+  tags: !reference [ .license_scanning, tags ]
+  variables: !reference [ .license_scanning, variables ]
