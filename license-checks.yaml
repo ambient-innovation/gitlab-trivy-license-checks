@@ -2,11 +2,45 @@ include:
   - remote: https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.template.yaml
 
 license_scanning:
-  allow_failure: !reference [ .license_scanning, allow_failure ]
-  artifacts: !reference [ .license_scanning, artifacts ]
-  cache: !reference [ .license_scanning, cache ]
-  image: !reference [ .license_scanning, image ]
-  script: !reference [ .license_scanning, script ]
-  stage: !reference [ .license_scanning, stage ]
-  tags: !reference [ .license_scanning, tags ]
-  variables: !reference [ .license_scanning, variables ]
+  image:
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/aquasec/trivy
+    entrypoint: [""]
+  tags:
+    - small-runner
+  stage: test
+  variables:
+    TRIVY_NO_PROGRESS: "true"
+    TRIVY_CACHE_DIR: ".trivycache/"
+    TRIVY_YAML: ""
+    TRIVY_USERNAME: "$CI_REGISTRY_USER"
+    TRIVY_PASSWORD: "$CI_REGISTRY_PASSWORD"
+    TRIVY_AUTH_URL: "$CI_REGISTRY"
+    SEVERITY: "HIGH,CRITICAL,UNKNOWN"
+    TRIVY_SEVERITY: "$SEVERITY"
+    SCANNERS: "license"
+    TRIVY_SCANNERS: "$SCANNERS"
+    COMBINED_TRIVY_YAML: "${TRIVY_CACHE_DIR}trivy-combined.yaml"
+    FILENAME: "gl-codeclimate-$CI_JOB_NAME_SLUG.json"
+    EXIT_CODE_ON_FINDINGS: 0
+  before_script:
+    - if [ ! -e ${TRIVY_CACHE_DIR} ]; then mkdir -p ${TRIVY_CACHE_DIR}; fi
+    - touch $FILENAME
+    - touch ${TRIVY_CACHE_DIR}trivy.yaml
+    - apk update && apk add yq
+    - if [ -z "$TRIVY_YAML" ]; then echo "using default trivy.yaml"; cat ${TRIVY_CACHE_DIR}trivy.yaml > ${COMBINED_TRIVY_YAML}; else echo "combining ${TRIVY_CACHE_DIR}trivy.yaml with ${TRIVY_YAML}"; yq eval-all '. as $item ireduce ({}; . *d+ $item )' ${TRIVY_CACHE_DIR}trivy.yaml ${TRIVY_YAML} > ${COMBINED_TRIVY_YAML}; fi
+    # If the license-check template isn't cached yet, download it from the github repo.
+    # We use this template to output the license findings in a CodeQuality-Style report so it can be processed by the GitLab-Merge-Request-Widget
+    - if [ ! -e ${TRIVY_CACHE_DIR}license-checks.tpl ]; then  wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.tpl -O ${TRIVY_CACHE_DIR}license-checks.tpl; fi
+  allow_failure: true
+  script:
+    - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ./.trivyignore.yaml --exit-code 0 --format template --template "@${TRIVY_CACHE_DIR}license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1
+    - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ./.trivyignore.yaml --exit-code ${EXIT_CODE_ON_FINDINGS} --format table $IMAGE
+  cache:
+    paths:
+      - $TRIVY_CACHE_DIR
+  artifacts:
+    paths:
+      - $FILENAME
+    reports:
+      codequality: $FILENAME
+    when: always
