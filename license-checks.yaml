@@ -24,8 +24,6 @@ license_scanning:
     EXIT_CODE_ON_FINDINGS: 0
     TRIVY_IGNOREFILE_DIR: "./.trivyignore.yaml"
   before_script:
-    # Create trivyignore.yaml if it doesn't exist yet
-    - touch ${TRIVY_IGNOREFILE_DIR}
     - if [ ! -e ${TRIVY_CACHE_DIR} ]; then mkdir -p ${TRIVY_CACHE_DIR}; fi
     - touch $FILENAME
     - touch ${TRIVY_CACHE_DIR}trivy.yaml
@@ -34,6 +32,8 @@ license_scanning:
     # If the license-check template isn't cached yet, download it from the github repo.
     # We use this template to output the license findings in a CodeQuality-Style report so it can be processed by the GitLab-Merge-Request-Widget
     - if [ ! -e ${TRIVY_CACHE_DIR}license-checks.tpl ]; then  wget --no-verbose https://raw.githubusercontent.com/ambient-innovation/gitlab-trivy-license-checks/main/license-checks.tpl -O ${TRIVY_CACHE_DIR}license-checks.tpl; fi
+    # Create trivyignore.yaml if it doesn't exist yet
+    - if [ ! -e ${TRIVY_IGNOREFILE_DIR} ]; then echo "ambient_trivyignore_placeholder: None" > ${TRIVY_IGNOREFILE_DIR}; fi
   allow_failure: true
   script:
     - trivy image --config ${COMBINED_TRIVY_YAML} --ignorefile ${TRIVY_IGNOREFILE_DIR} --exit-code 0 --format template --template "@${TRIVY_CACHE_DIR}license-checks.tpl" -o $FILENAME $IMAGE >/dev/null 2>&1
